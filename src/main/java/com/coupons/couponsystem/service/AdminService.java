@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-public interface CompanyService {
+public interface AdminService {
 
  //   boolean existsBy(String email,String password) throws Exception;
 

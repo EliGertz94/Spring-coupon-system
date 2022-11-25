@@ -4,10 +4,11 @@ import com.coupons.couponsystem.Repositoty.CompanyRepository;
 import com.coupons.couponsystem.exception.CouponSystemException;
 import com.coupons.couponsystem.exception.ResourceNotFound;
 import com.coupons.couponsystem.model.Company;
-import com.coupons.couponsystem.service.CompanyService;
+import com.coupons.couponsystem.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +16,18 @@ import java.util.Optional;
 
 
 @Service
-public class CompanyServiceImpl implements CompanyService {
+@Transactional
+public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private CompanyRepository companyRepository;
 
     @Override
     public boolean doesCompanyExist(String email,String password){
-      return  companyRepository.existsByEmailAndPassword(email,password);
+
+               return  companyRepository.existsByEmail(email)
+                       && companyRepository.existsByPassword(password);
+
     }
 
     @Override
