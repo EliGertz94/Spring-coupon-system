@@ -1,9 +1,12 @@
 package com.coupons.couponsystem.service.impl;
 
 import com.coupons.couponsystem.Repositoty.CompanyRepository;
+import com.coupons.couponsystem.Repositoty.CouponRepository;
+import com.coupons.couponsystem.Repositoty.CustomerRepository;
 import com.coupons.couponsystem.exception.CouponSystemException;
 import com.coupons.couponsystem.exception.ResourceNotFound;
 import com.coupons.couponsystem.model.Company;
+import com.coupons.couponsystem.model.Customer;
 import com.coupons.couponsystem.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +24,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
     public boolean doesCompanyExist(String email,String password){
@@ -48,18 +53,16 @@ public class AdminServiceImpl implements AdminService {
 
     //if the name is the same should I have a set name ?
         @Override
-        public Company updateCompany(Company company,long id) {
+        public Company updateCompany(Company company) {
 
-          Company company1 = companyRepository.findById(id).orElseThrow(
-                  ()->new CouponSystemException(HttpStatus.NOT_FOUND,"existsBy error at CompanyServiceImpl "));
 
-                return companyRepository.findById(id).map(companyEntity -> {
+                return companyRepository.findById(company.getId()).map(companyEntity -> {
                             companyEntity.setEmail(company.getEmail());
                             companyEntity.setPassword(company.getPassword());
 
                             return companyEntity;
                         }
-                ).orElseThrow(() -> new ResourceNotFound("updateCompany", "company id", id));
+                ).orElseThrow(() -> new ResourceNotFound("updateCompany", "company id", company.getId()));
           
             }
 
@@ -82,6 +85,50 @@ public class AdminServiceImpl implements AdminService {
           return  companyRepository.findById(id).orElseThrow
                   (() -> new ResourceNotFound("getOneCompany", "company id", id));
         }
+
+    @Override
+    public Customer addCustomer(Customer customer) {
+        if(!companyRepository.existsByEmail(customer.getEmail()))
+        {
+          return   customerRepository.save(customer);
+        }
+        throw new CouponSystemException(HttpStatus.BAD_REQUEST,"addCustomer error at adminService");
+        }
+
+    @Override
+    public Customer updateCustomer(Customer customer) {
+
+        return customerRepository.findById(customer.getId()).map(customerEntity -> {
+            customerEntity.setFirstName(customer.getFirstName());
+            customerEntity.setLastName(customer.getLastName());
+            customerEntity.setEmail(customer.getEmail());
+            customerEntity.setPassword(customer.getPassword());
+
+                    return customerEntity;
+                }
+        ).orElseThrow(() -> new CouponSystemException(HttpStatus.NOT_FOUND,"updateCustomer error at adminservice "));
+
+    }
+
+    @Override
+    public void deleteCustomer(long id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFound("deleteCustomer", "customer id", id));
+
+        customerRepository.delete(customer);
+    }
+
+    @Override
+    public List<Customer> getAllCustomers() {
+     return  customerRepository.findAll();
+    }
+
+    @Override
+    public Customer getOneCustomer(long id) {
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFound("getOneCustomer", "customer id", id));
+
+    }
 
 
 //

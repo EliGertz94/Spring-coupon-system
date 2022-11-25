@@ -28,7 +28,7 @@ public class CompanyController {
             String messege =  adminService.doesCompanyExist(company.getEmail(),company.getPassword())+" ";
             return messege;
         }catch(CouponSystemException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage(),e);
+            throw new ResponseStatusException(e.getStatus(),e.getMessage(),e);
         }
     }
 
@@ -37,9 +37,9 @@ public class CompanyController {
         return new ResponseEntity<>(adminService.addCompany(company), HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<Company> updateCompany(@RequestBody Company company, @PathVariable long id){
-        return new ResponseEntity<>(adminService.updateCompany(company, id),HttpStatus.OK);
+    @PutMapping()
+    public ResponseEntity<Company> updateCompany(@RequestBody Company company){
+        return new ResponseEntity<>(adminService.updateCompany(company),HttpStatus.OK);
     }
 
 }
