@@ -1,15 +1,17 @@
 package com.coupons.couponsystem.model;
 
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
-@ToString(exclude = "coupons")
+//@ToString(exclude = "coupons")
 @Table(name = "customer")
 public class Customer {
 
@@ -20,7 +22,6 @@ public class Customer {
     private String lastName;
     private String email;
     private String password;
-
     @ManyToMany(fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
     @JoinTable(name = "customer_coupons",

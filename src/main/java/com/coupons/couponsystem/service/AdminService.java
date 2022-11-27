@@ -2,7 +2,6 @@ package com.coupons.couponsystem.service;
 
 import com.coupons.couponsystem.model.Company;
 import com.coupons.couponsystem.model.Customer;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ public interface AdminService {
 
  //   boolean existsBy(String email,String password) throws Exception;
 
-    public boolean doesCompanyExist(String email,String password);
+    public boolean logIn(String email,String password);
 
     Company addCompany(Company company);
 

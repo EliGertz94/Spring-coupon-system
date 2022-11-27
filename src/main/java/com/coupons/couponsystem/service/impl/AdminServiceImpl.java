@@ -1,7 +1,6 @@
 package com.coupons.couponsystem.service.impl;
 
 import com.coupons.couponsystem.Repositoty.CompanyRepository;
-import com.coupons.couponsystem.Repositoty.CouponRepository;
 import com.coupons.couponsystem.Repositoty.CustomerRepository;
 import com.coupons.couponsystem.exception.CouponSystemException;
 import com.coupons.couponsystem.exception.ResourceNotFound;
@@ -13,9 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -28,10 +25,9 @@ public class AdminServiceImpl implements AdminService {
     private CustomerRepository customerRepository;
 
     @Override
-    public boolean doesCompanyExist(String email,String password){
+    public boolean logIn(String email,String password){
 
-               return  companyRepository.existsByEmail(email)
-                       && companyRepository.existsByPassword(password);
+        return email.equals("admin@admin.com") && password.equals("admin");
 
     }
 

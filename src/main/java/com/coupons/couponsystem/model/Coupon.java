@@ -1,24 +1,33 @@
 package com.coupons.couponsystem.model;
 
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
+
 @Entity
-@ToString(exclude = "customer")
+
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "coupon")
 public class Coupon {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id",nullable = false)
+    @JoinColumn(name = "company_id", referencedColumnName = "id",nullable = false)
+  //  @ToString.Exclude
     private Company company;
-    private long categoryId;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name="category")
+  //  @ToString.Exclude
+    private Category category;
     private String title;
     private String description;
     private LocalDateTime startDate;

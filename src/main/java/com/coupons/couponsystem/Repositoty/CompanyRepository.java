@@ -1,8 +1,7 @@
 package com.coupons.couponsystem.Repositoty;
-import com.coupons.couponsystem.model.Company;
-import com.coupons.couponsystem.model.Coupon;
-import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.coupons.couponsystem.model.Company;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
@@ -19,6 +18,7 @@ public interface CompanyRepository extends JpaRepository<Company,Long> {
     boolean existsByPassword(String password);
 
     Company findByName(String name);
+
 
 
 
