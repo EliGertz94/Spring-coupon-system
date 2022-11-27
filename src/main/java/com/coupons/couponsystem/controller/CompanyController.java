@@ -70,7 +70,7 @@ public class CompanyController {
     }
 
     @GetMapping("/companycoupons/")
-    public List<Coupon> getComopanyCoupons(){
+    public List<Coupon> getCompanyCoupons(){
 
        List<Coupon> coupons=  companyService.getAllCompanyCoupons();
         for(Coupon coupon:coupons) {

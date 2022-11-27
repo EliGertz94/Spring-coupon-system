@@ -32,9 +32,13 @@ public class CompanyServiceImpl implements CompanyService {
 
       Company company=   companyRepository.findByEmailAndPassword(email,password)
                 .orElseThrow(() -> new CouponSystemException(HttpStatus.NOT_FOUND,"logIn company service " ));
-        companyId = company.getId();
-        return companyRepository.existsByEmail(email)
-                    && companyRepository.existsByPassword(password);
+
+      if(companyRepository.existsByEmail(email)
+              && companyRepository.existsByPassword(password)) {
+          companyId = company.getId();
+          return true;
+      }
+       return false;
 
     }
 
@@ -61,9 +65,10 @@ public class CompanyServiceImpl implements CompanyService {
 
     }
 
+
+    /// why am  I getting stackoverflow??!?!?!?!?
     @Override
     public List<Coupon> getAllCompanyCoupons() {
-        System.out.println(couponRepository.findAllByCompanyId(this.companyId));
         List<Coupon> coupons =couponRepository.findAllByCompanyId(this.companyId);
         List<String> couponsNames= new ArrayList<>();
         for(Coupon coupon:coupons ){

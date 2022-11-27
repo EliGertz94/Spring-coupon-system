@@ -21,29 +21,4 @@ public interface CompanyRepository extends JpaRepository<Company,Long> {
 
 
 
-
-//
-//    Company companyByLogin(String email, String password);
-//
-//    int addCompany(Company company);
-//
-//    void updateCompany(Company company);
-//
-//    void deleteCompany(int companyId);
-//
-//    void deleteFromCoupons(int companyId);
-//
-//    void deleteFromCVC(int companyId);
-//
-//    boolean getCompanyByName(String companyName);
-//
-//    ArrayList<Company> getAllCompanies();
-//
-//    Company getOneCompany(int companyId);
-//
-//    boolean getCompanyByEmail(String companyEmail);
-//
-//    ArrayList<Coupon> getAllCompanyCoupons(int companyId);
-//
-
 }

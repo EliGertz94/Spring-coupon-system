@@ -1,10 +1,12 @@
 package com.coupons.couponsystem.model;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -25,5 +27,5 @@ public class Company {
     private String password;
    // @ToString.Exclude
     @OneToMany(mappedBy = "company",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Coupon> coupons = new ArrayList<>();
+    private List<Coupon> coupons ;
 }

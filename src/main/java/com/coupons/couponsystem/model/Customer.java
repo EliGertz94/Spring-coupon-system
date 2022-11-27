@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-//@ToString(exclude = "coupons")
+@ToString(exclude = "coupons")
 @Table(name = "customer")
 public class Customer {
 

@@ -84,12 +84,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Customer addCustomer(Customer customer) {
-        if(!companyRepository.existsByEmail(customer.getEmail()))
+        if(customerRepository.existsByEmail(customer.getEmail()))
         {
-          return   customerRepository.save(customer);
+            throw new CouponSystemException(HttpStatus.BAD_REQUEST,"addCustomer error at adminService");
         }
-        throw new CouponSystemException(HttpStatus.BAD_REQUEST,"addCustomer error at adminService");
-        }
+        return customerRepository.save(customer);
+    }
 
     @Override
     public Customer updateCustomer(Customer customer) {
@@ -102,7 +102,7 @@ public class AdminServiceImpl implements AdminService {
 
                     return customerEntity;
                 }
-        ).orElseThrow(() -> new CouponSystemException(HttpStatus.NOT_FOUND,"updateCustomer error at adminservice "));
+        ).orElseThrow(() -> new CouponSystemException(HttpStatus.NOT_FOUND,"updateCustomer error at admin service "));
 
     }
 
@@ -127,15 +127,4 @@ public class AdminServiceImpl implements AdminService {
     }
 
 
-//
-//    @Override
-//    public boolean existsBy(String email, String password) throws Exception {
-//        Company company = companyRepository.findByEmailAndPassword(email,password)
-//                .orElseThrow(()-> new CouponSystemException(HttpStatus.NOT_FOUND,"existsBy error at CompanyServiceImpl "));
-//        System.out.println(company);
-//        if(company!=null){
-//            return true;
-//        }
-//        return false;
-//    }
 }

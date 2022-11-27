@@ -10,7 +10,6 @@ public interface CompanyService {
 
      boolean logIn(String email,String password);
 
-
      Coupon addCoupon(Coupon coupon);
 
     void deleteCoupon(long couponId);
