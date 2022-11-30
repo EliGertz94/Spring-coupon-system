@@ -7,6 +7,8 @@ import com.coupons.couponsystem.model.Company;
 import com.coupons.couponsystem.model.Coupon;
 import com.coupons.couponsystem.service.AdminService;
 import com.coupons.couponsystem.service.CompanyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+//@Slf4j
 @RequestMapping("api/company/")
 public class CompanyController {
 
@@ -25,6 +28,8 @@ public class CompanyController {
     private AdminService adminService;
     @Autowired
     private CompanyService companyService;
+
+    Logger logger= LoggerFactory.getLogger(CompanyController.class);
 
 
     public CompanyController(AdminService adminService) {
@@ -36,6 +41,8 @@ public class CompanyController {
     public ResponseEntity<String> logIn(@RequestBody LogInDOT logInDOT){
         try{
             String messege =  companyService.logIn(logInDOT.getEmail(),logInDOT.getPassword())+" ";
+
+            logger.info("loged in status {}",messege);
             return new ResponseEntity<>(messege,HttpStatus.OK);
         }catch(CouponSystemException e) {
             throw new ResponseStatusException(e.getStatus(),e.getMessage(),e);
@@ -74,7 +81,8 @@ public class CompanyController {
 
        List<Coupon> coupons=  companyService.getAllCompanyCoupons();
         for(Coupon coupon:coupons) {
-            System.out.println(coupon.getTitle());
+
+          // log.info("coupon.getTitle() -> {}",coupon.getTitle());
         }
         return coupons ;
     }

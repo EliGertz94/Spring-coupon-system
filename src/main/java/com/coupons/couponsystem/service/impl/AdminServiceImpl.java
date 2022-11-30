@@ -1,13 +1,13 @@
 package com.coupons.couponsystem.service.impl;
 
 import com.coupons.couponsystem.Repositoty.CompanyRepository;
+import com.coupons.couponsystem.Repositoty.CouponRepository;
 import com.coupons.couponsystem.Repositoty.CustomerRepository;
 import com.coupons.couponsystem.exception.CouponSystemException;
 import com.coupons.couponsystem.exception.ResourceNotFound;
 import com.coupons.couponsystem.model.Company;
 import com.coupons.couponsystem.model.Customer;
 import com.coupons.couponsystem.service.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,12 +17,19 @@ import java.util.List;
 
 @Service
 @Transactional
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl extends  ClientFacade implements AdminService {
 
-    @Autowired
     private CompanyRepository companyRepository;
-    @Autowired
     private CustomerRepository customerRepository;
+
+    private CouponRepository couponRepository;
+
+    public AdminServiceImpl(CompanyRepository companyRepository, CustomerRepository customerRepository, CouponRepository couponRepository) {
+        super(companyRepository, customerRepository, couponRepository);
+        this.companyRepository = companyRepository;
+        this.customerRepository = customerRepository;
+        this.couponRepository = couponRepository;
+    }
 
     @Override
     public boolean logIn(String email,String password){

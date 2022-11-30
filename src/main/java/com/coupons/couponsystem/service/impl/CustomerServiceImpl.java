@@ -55,6 +55,9 @@ public class CustomerServiceImpl  implements CustomerService {
         customer.getCoupons().add(coupon);
     }
 
+
+    //is it legit ?
+    //do I need to do it with a specific repository query ?
     @Override
     public List<Coupon> getCustomerCoupons() {
         Customer customer = customerRepository.findById(this.customerId)
